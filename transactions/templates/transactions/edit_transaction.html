@@ -1,0 +1,19 @@
+    {% extends 'core/base.html' %}
+
+    {% block title %}Edit Transaction | FinSight AI{% endblock %}
+
+    {% block content %}
+    <div class="content-header">
+        <h1 class="page-title">Edit Transaction</h1>
+    </div>
+
+    <div class="content-card">
+        <form method="post" class="add-transaction-form" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn-glow-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+    {% endblock %}

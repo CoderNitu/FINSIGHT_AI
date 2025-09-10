@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FinSight AI{% endblock %}</title>
+    
+    <!-- =============================================================== -->
+    <!-- ===         THE FINAL, CORRECTED CSP META TAG             === -->
+    <!-- =============================================================== -->
+    <meta http-equiv="Content-Security-Policy" 
+          content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net;">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Our Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="dashboard-body">
+
+    <nav class="dashboard-nav">
+        <div class="nav-container">
+            <a class="nav-brand" href="{% url 'dashboard' %}">FinSight AI</a>
+            <div class="nav-user-info">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'manage_budgets' %}" class="nav-link">Budgets</a>
+                    <a href="{% url 'manage_rules' %}" class="nav-link">Smart Rules</a>
+                    <span class="welcome-text">Welcome, {{ user.username }}</span>
+                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-logout">Logout</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>
+

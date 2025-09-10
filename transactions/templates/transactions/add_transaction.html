@@ -1,0 +1,164 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Add Transaction | FinSight AI{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <h1 class="page-title">Record a New Transaction</h1>
+</div>
+
+<div class="content-card">
+    <form id="transactionForm" method="post" class="add-transaction-form" novalidate>
+        {% csrf_token %}
+        
+        {% for field in form %}
+            {% if field.name == 'category' %}
+                <div class="form-group">
+                    <div class="category-label-container">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <button type="button" class="btn-add-category" id="addCategoryBtn" title="Add New Category">+</button>
+                    </div>
+                    {{ field }}
+                </div>
+            {% else %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}<small class="form-text text-muted">{{ field.help_text|safe }}</small>{% endif %}
+                    {% for error in field.errors %}<p class="error-text">{{ error }}</p>{% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        <div class="d-grid mt-4">
+            <button type="submit" class="btn-glow-primary">Save Transaction</button>
+        </div>
+    </form>
+</div>
+
+<!-- Add Category Modal -->
+<div class="modal-overlay" id="categoryModalOverlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <span>Add New Category</span>
+            </h3>
+            <button type="button" class="btn-close-modal" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="addCategoryForm">
+                <div class="form-group">
+                    <label for="id_name">Category Name</label>
+                    <input type="text" name="name" id="id_name" class="form-control" placeholder="e.g., Groceries, Salary" required>
+                    <div id="category-error" class="error-text" style="display: none;"></div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="cancelCategoryBtn">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- =============================================================== -->
+<!-- ===           FINAL, ROBUST JAVASCRIPT BLOCK              === -->
+<!-- =============================================================== -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Element Selectors ---
+        const modalOverlay = document.getElementById('categoryModalOverlay');
+        const addCategoryBtn = document.getElementById('addCategoryBtn');
+        const cancelCategoryBtn = document.getElementById('cancelCategoryBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const addCategoryForm = document.getElementById('addCategoryForm');
+        const categorySelect = document.getElementById('id_category');
+        const categoryError = document.getElementById('category-error');
+        const descriptionInput = document.getElementById('id_description');
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        let typingTimer;
+        const doneTypingInterval = 800; // ms
+
+        // --- Helper Function ---
+        function getCsrfToken() { return csrfToken; }
+
+        // --- Modal Logic ---
+        function openModal() {
+            if (modalOverlay) modalOverlay.style.display = 'flex';
+            if (addCategoryForm) addCategoryForm.elements.name.focus();
+        }
+
+        function closeModal() {
+            if (modalOverlay) modalOverlay.style.display = 'none';
+            if (addCategoryForm) addCategoryForm.reset();
+            if (categoryError) categoryError.style.display = 'none';
+        }
+        
+        // Add listeners only if elements exist
+        if (addCategoryBtn) addCategoryBtn.addEventListener('click', openModal);
+        if (cancelCategoryBtn) cancelCategoryBtn.addEventListener('click', closeModal);
+        if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+        if (modalOverlay) modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) { closeModal(); }
+        });
+
+        if (addCategoryForm) {
+            addCategoryForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const categoryName = addCategoryForm.elements.name.value.trim();
+                if (!categoryName) return;
+
+                const response = await fetch("{% url 'add_category' %}", {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrfToken() },
+                    body: JSON.stringify({ name: categoryName }),
+                });
+                const data = await response.json();
+
+                if (response.ok && categorySelect) {
+                    const newOption = new Option(data.category_name, data.category_id);
+                    categorySelect.add(newOption);
+                    categorySelect.value = data.category_id;
+                    closeModal();
+                } else if (categoryError) {
+                    categoryError.textContent = data.message;
+                    categoryError.style.display = 'block';
+                }
+            });
+        }
+        
+        // --- AI Suggestion Logic ---
+        async function getCategorySuggestion() {
+            if (!descriptionInput) return;
+            const description = descriptionInput.value.trim();
+            if (description.length < 4) return;
+
+            const response = await fetch("{% url 'suggest_category' %}", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrfToken() },
+                body: JSON.stringify({ description: description }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.status === 'success' && categorySelect && !categorySelect.value) {
+                     categorySelect.value = data.category_id;
+                }
+            }
+        }
+
+        if (descriptionInput) {
+            descriptionInput.addEventListener('keyup', () => {
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(getCategorySuggestion, doneTypingInterval);
+            });
+
+            descriptionInput.addEventListener('keydown', () => {
+                clearTimeout(typingTimer);
+            });
+        }
+    });
+</script>
+{% endblock %}
+

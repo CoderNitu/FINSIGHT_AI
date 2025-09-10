@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FinSight AI{% endblock %}</title>
+    <!-- Google Fonts for a modern typeface -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Link to our custom stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="auth-container">
+        <!-- Left Side: Branding and Graphic -->
+        <div class="auth-graphic-side">
+            <div class="auth-brand-content">
+                <h1 class="brand-title">FinSight AI</h1>
+                <p class="brand-tagline">Clarity in Every Transaction.</p>
+            </div>
+        </div>
+        
+        <!-- Right Side: The Form -->
+        <div class="auth-form-side">
+            {% block form_content %}
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
+</html>

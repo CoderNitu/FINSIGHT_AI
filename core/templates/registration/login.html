@@ -1,0 +1,39 @@
+{% extends 'core/base_auth.html' %}
+
+{% block title %}Login | FinSight AI{% endblock %}
+
+{% block form_content %}
+<div class="glass-card">
+    <h2 class="form-title">Welcome Back</h2>
+    <p class="form-subtitle">Enter your credentials to access your dashboard.</p>
+    
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        
+        <!-- Custom rendering of the form for better styling -->
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.password.id_for_label }}">Password</label>
+            {{ form.password }}
+        </div>
+
+        {% if form.errors %}
+            <div class="form-errors">
+                <p>Your username and password didn't match. Please try again.</p>
+            </div>
+        {% endif %}
+        
+        <div class="d-grid mt-4">
+            <button type="submit" class="btn-glow">Login</button>
+        </div>
+    </form>
+    
+    <p class="form-footer-text">
+        Don't have an account? <a href="{% url 'signup' %}">Sign up now</a>
+    </p>
+</div>
+{% endblock %}
+

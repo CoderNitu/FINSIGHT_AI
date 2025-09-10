@@ -1,0 +1,580 @@
+/* --- Global & Base Styles --- */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ============================================= */
+/* ===      AUTHENTICATION PAGE STYLES       === */
+/* ============================================= */
+/* These styles remain the same for our beautiful login pages */
+.auth-container { display: flex; min-height: 100vh; width: 100%; }
+.auth-graphic-side { flex: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; justify-content: center; align-items: center; color: white; text-align: center; padding: 2rem; }
+.auth-brand-content .brand-title { font-size: 3.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+.auth-brand-content .brand-tagline { font-size: 1.25rem; font-weight: 300; opacity: 0.9; }
+.auth-form-side { flex: 1; display: flex; justify-content: center; align-items: center; background: url('https://www.transparenttextures.com/patterns/cubes.png'), linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 2rem; }
+.glass-card { width: 100%; max-width: 450px; padding: 2.5rem; background: rgba(255, 255, 255, 0.25); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.form-title { font-size: 2rem; font-weight: 600; color: #333; text-align: center; margin-bottom: 0.5rem; }
+.form-subtitle { text-align: center; color: #555; margin-bottom: 2rem; }
+.auth-form .form-group { margin-bottom: 1.5rem; position: relative; }
+.auth-form label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #444; }
+.auth-form input { display: block; width: 100%; padding: 0.75rem; font-size: 1rem; font-family: 'Poppins', sans-serif; color: #333; background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 10px; transition: all 0.3s ease; }
+.auth-form input:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3); }
+.btn-glow { width: 100%; padding: 0.8rem; font-size: 1.1rem; font-weight: 600; color: white; background: linear-gradient(45deg, #667eea, #764ba2); border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4); }
+.btn-glow:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(118, 75, 162, 0.6); }
+.form-footer-text { text-align: center; margin-top: 1.5rem; color: #555; }
+.form-footer-text a { color: #764ba2; font-weight: 500; text-decoration: none; transition: color 0.3s ease; }
+.form-footer-text a:hover { text-decoration: underline; }
+.form-errors, .errorlist, .helptext, .error-text { color: #d93025; font-size: 0.9rem; margin-top: 0.5rem; padding: 0; list-style-type: none; }
+
+/* ================================================= */
+/* ===         NEW LIGHT DASHBOARD STYLES        === */
+/* ================================================= */
+
+.dashboard-body {
+    background-color: #f4f7f6; /* A very light grey background */
+    color: #333;
+}
+
+.dashboard-nav {
+    background-color: #ffffff;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.nav-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand {
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.welcome-text {
+    margin-right: 1rem;
+    color: #555;
+}
+
+.btn-logout {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
+}
+
+.dashboard-main-content {
+    width: 90%;
+    max-width: 1400px;
+    margin: 2.5rem auto;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.btn-glow-primary {
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    background: #007bff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.btn-glow-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
+}
+
+.content-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transaction-table th {
+    text-align: left;
+    padding: 1rem;
+    color: #6c757d;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    border-bottom: 2px solid #dee2e6;
+}
+
+/* FIX: Aligning the 'Amount' header to the right */
+.transaction-table th.text-end {
+    text-align: right;
+}
+
+.transaction-table td {
+    padding: 1.25rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.transaction-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.transaction-table .description-cell {
+    color: #212529;
+    font-weight: 500;
+}
+
+.category-badge {
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.amount-cell {
+    font-weight: 600;
+    text-align: right;
+    font-size: 1.1rem;
+}
+
+.amount-cell.income { color: #28a745; }
+.amount-cell.expense { color: #dc3545; }
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+}
+.empty-state h2 { color: #333; margin-bottom: 0.5rem; }
+.empty-state p { color: #6c757d; max-width: 400px; margin: 0 auto; }
+
+
+/* FIX: Form Styles for Add Transaction */
+.add-transaction-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.add-transaction-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+.add-transaction-form input,
+.add-transaction-form select {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #f8f9fa;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .375rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.add-transaction-form input:focus,
+.add-transaction-form select:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+    /* --- Styles for Category Modal --- */
+.category-label-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+    }
+
+.btn-add-category {
+        background-color: #4A90E2;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+    }
+
+.btn-add-category:hover {
+        background-color: #357ABD;
+    }
+
+.modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+.modal-content {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+.modal-title {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        color: #343a40;
+    }
+
+.modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+    }
+
+.modal-actions .btn-primary, .modal-actions .btn-secondary {
+        padding: 0.6rem 1.2rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+.modal-actions .btn-primary {
+        background-color: #4A90E2;
+        color: white;
+    }
+
+.modal-actions .btn-secondary {
+        background-color: #f1f3f5;
+        color: #495057;
+    }
+    
+/* ================================================= */
+    /* ===        MANAGE RULES PAGE STYLES         === */
+    /* ================================================= */
+
+    .nav-link {
+        color: #6c757d;
+        text-decoration: none;
+        font-weight: 500;
+        margin-right: 1.5rem;
+        transition: color 0.2s;
+    }
+    .nav-link:hover {
+        color: #4A90E2;
+    }
+
+    .category-rule-card {
+        background-color: #f8f9fe;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .category-title {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        color: #343a40;
+    }
+
+    .keywords-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .keyword-tag {
+        display: inline-flex;
+        align-items: center;
+        background-color: #e9ecef;
+        color: #495057;
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+    }
+
+    .btn-delete-keyword {
+        background: none;
+        border: none;
+        color: #adb5bd;
+        margin-left: 0.5rem;
+        cursor: pointer;
+        font-size: 1.2rem;
+        line-height: 1;
+    }
+    .btn-delete-keyword:hover {
+        color: #dc3545;
+    }
+
+    .no-keywords-text {
+        font-style: italic;
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    .add-keyword-form {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .add-keyword-form .form-control {
+        flex-grow: 1;
+    }
+
+    .btn-add-keyword {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+    }
+    
+
+/* ================================================= */
+/* ===         ACTION BUTTONS & DELETE PAGE      === */
+/* ================================================= */
+
+.actions-cell {
+    text-align: center;
+}
+
+.btn-action {
+    display: inline-block;
+    padding: 0.3rem;
+    margin: 0 0.2rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-action svg {
+    vertical-align: middle;
+}
+
+.btn-edit {
+    color: #6c757d;
+}
+.btn-edit:hover {
+    background-color: #e9ecef;
+    color: #007bff;
+}
+
+.btn-delete {
+    color: #6c757d;
+}
+.btn-delete:hover {
+    background-color: #f8d7da;
+    color: #dc3545;
+}
+
+/* Simple styles for buttons on confirm page */
+.btn {
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border-radius: .3rem;
+    text-decoration: none;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.btn:hover {
+    text-decoration: none;
+    opacity: 0.9;
+}
+
+/* ================================================= */
+/* ===         HEADER ACTIONS & BUTTONS          === */
+/* ================================================= */
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #495057;
+    background-color: #f1f3f5;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+    transform: translateY(-2px);
+}
+
+/* ================================================= */
+/* ===         DASHBOARD GRID & CHART STYLES     === */
+/* ================================================= */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Chart takes 1 part, table takes 1.5 parts */
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.grid-item .content-card {
+    height: 100%; /* Make cards in a row the same height */
+}
+
+.card-title {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #343a40;
+}
+
+.chart-container {
+    position: relative;
+    height: 350px; /* Give the chart a fixed height */
+}
+
+/* Make the grid stack into a single column on smaller screens */
+@media (max-width: 992px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================================================= */
+/* ===         BUDGET MANAGEMENT & DISPLAY       === */
+/* ================================================= */
+
+.budget-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.budget-item { display: flex; flex-direction: column; }
+.budget-label { font-weight: 500; margin-bottom: 0.5rem; }
+.input-group { display: flex; }
+.input-group-text { padding: 0.75rem; background-color: #e9ecef; border: 1px solid #ced4da; border-right: 0; border-radius: .5rem 0 0 .5rem; }
+.input-group .form-control { border-radius: 0 .5rem .5rem 0; }
+
+.budget-progress-container { display: flex; flex-direction: column; gap: 1.5rem; }
+.budget-info { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem; }
+.budget-category-name { font-weight: 500; }
+.budget-amounts { color: #6c757d; }
+.progress-bar-container { width: 100%; background-color: #e9ecef; border-radius: 20px; height: 10px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background-color: #4A90E2; border-radius: 20px; transition: width 0.5s ease-in-out; }
+.empty-state-small { text-align: center; padding: 2rem; }
+
+/* ================================================= */
+/* ===         BUDGET WARNING COLORS             === */
+/* ================================================= */
+
+.progress-bar-fill.success {
+    background-color: #20c997; /* Green */
+}
+
+.progress-bar-fill.warning {
+    background-color: #fd7e14; /* Orange */
+}
+
+.progress-bar-fill.danger {
+    background-color: #fa5252; /* Red */
+}
+
+.budget-amounts.over-budget {
+    color: #fa5252;
+    font-weight: 600;
+}
+
+/* ================================================= */
+    /* ===         FORECAST SUMMARY CARD STYLES      === */
+    /* ================================================= */
+    
+    .summary-card {
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .summary-label {
+        font-size: 1rem;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+    }
+
+    .summary-value {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #343a40;
+        margin-bottom: 0.5rem;
+    }
+
+    .summary-note {
+        font-size: 0.9rem;
+        color: #adb5bd;
+    }

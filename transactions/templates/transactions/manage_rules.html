@@ -1,0 +1,46 @@
+    {% extends 'core/base.html' %}
+
+    {% block title %}Manage Smart Rules | FinSight AI{% endblock %}
+
+    {% block content %}
+    <div class="content-header">
+        <h1 class="page-title">Manage Smart Rules</h1>
+    </div>
+
+    <div class="content-card">
+        <p class="mb-4 text-muted">Link keywords to your categories to make the AI suggestion engine smarter. For example, link the keyword "swiggy" to your "Food" category.</p>
+
+        {% for category in categories %}
+        <div class="category-rule-card">
+            <h5 class="category-title">{{ category.name }}</h5>
+            
+            <!-- List existing keywords -->
+            <div class="keywords-list">
+                {% for keyword in category.keywords.all %}
+                <div class="keyword-tag">
+                    <span>{{ keyword.text }}</span>
+                    <form method="post" action="{% url 'manage_rules' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="delete_keyword">
+                        <input type="hidden" name="keyword_id" value="{{ keyword.id }}">
+                        <button type="submit" class="btn-delete-keyword">&times;</button>
+                    </form>
+                </div>
+                {% empty %}
+                <p class="no-keywords-text">No keywords linked yet.</p>
+                {% endfor %}
+            </div>
+
+            <!-- Form to add a new keyword -->
+            <form method="post" action="{% url 'manage_rules' %}" class="add-keyword-form">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add_keyword">
+                <input type="hidden" name="category_id" value="{{ category.id }}">
+                <input type="text" name="keyword_text" class="form-control" placeholder="Add a new keyword..." required>
+                <button type="submit" class="btn-add-keyword">+</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+    

@@ -1,0 +1,160 @@
+{% extends 'core/base.html' %}
+{% block title %}Dashboard | FinSight AI{% endblock %}
+{% block content %}
+<div class="content-header">
+    <h1 class="page-title">Dashboard</h1>
+    <div class="header-actions">
+        <a href="{% url 'export_transactions_csv' %}" class="btn-secondary" title="Download as CSV">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Download</span>
+        </a>
+        <a href="{% url 'add_transaction' %}" class="btn-glow-primary">+ Add New Transaction</a>
+    </div>
+</div>
+
+<div class="dashboard-grid">
+    <!-- Chart Column -->
+    <div class="grid-item">
+        <div class="content-card">
+            <h5 class="card-title">Spending Breakdown</h5>
+            <div class="chart-container">
+                <canvas id="spendingPieChart"></canvas>
+            </div>
+        </div>
+          
+        <br>
+        <div class="content-card mt-4">
+                <h5 class="card-title">Financial Forecast</h5>
+                <div class="summary-card">
+                    {% if forecasted_spending is not None %}
+                        <p class="summary-label">Projected Spending (Next 30 Days)</p>
+                        <p class="summary-value">₹{{ forecasted_spending|floatformat:2 }}</p>
+                        <p class="summary-note">Based on your historical spending patterns.</p>
+                    {% else %}
+                        <p class="summary-label">Forecast Unavailable</p>
+                        <p class="summary-note">Keep adding transactions for at least 30 days to enable predictive forecasting.</p>
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+
+    <!-- Transactions Table Column -->
+    <div class="grid-item">
+        <div class="content-card">
+            <h5 class="card-title">Recent Transactions</h5>
+            {% if transactions %}
+            <div class="table-responsive">
+                <table class="transaction-table">
+                    <!-- THE MISSING TABLE HEADERS -->
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th class="text-end">Amount</th>
+                            <th class="text-center">Actions</th> 
+                        </tr>
+                    </thead>
+                    <!-- THE MISSING LOOP TO DISPLAY TRANSACTIONS -->
+                    <tbody>
+                        {% for transaction in transactions|slice:":10" %} <!-- Show only latest 10 -->
+                        <tr>
+                            <td>{{ transaction.date|date:"M d, Y" }}</td>
+                            <td class="description-cell">{{ transaction.description }}</td>
+                            <td><span class="category-badge">{{ transaction.category.name|default:"-" }}</span></td>
+                            <td class="amount-cell {% if transaction.transaction_type == 'income' %}income{% else %}expense{% endif %}">
+                                {% if transaction.transaction_type == 'income' %}+{% else %}-{% endif %}
+                                ₹{{ transaction.amount|floatformat:2 }}
+                            </td>
+                            <td class="actions-cell">
+                                <a href="{% url 'edit_transaction' transaction.id %}" class="btn-action btn-edit" title="Edit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                </a>
+                                <a href="{% url 'delete_transaction' transaction.id %}" class="btn-action btn-delete" title="Delete">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <!-- THE MISSING EMPTY STATE MESSAGE -->
+            <div class="empty-state">
+                <h2>No Transactions Yet</h2>
+                <p>Your financial journey starts here. Click the button above to add your first transaction!</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="content-card mt-4">
+        <h5 class="card-title">Monthly Budget Progress</h5>
+        {% if budget_progress %}
+            <div class="budget-progress-container">
+            {% for item in budget_progress %}
+                <div class="budget-progress-item">
+                    <div class="budget-info">
+                        <span class="budget-category-name">{{ item.category_name }}</span>
+                        <span class="budget-amounts">₹{{ item.spent_amount|floatformat:2 }} / ₹{{ item.budget_amount|floatformat:2 }}</span>
+                    </div>
+                    <div class="progress-bar-container">
+                    <!-- THE CORRECTED LINE WITH THE COLOR CLASS -->
+                    <div class="progress-bar-fill {{ item.bar_color_class }}" style="width: {{ item.percentage }}%;"></div>
+                </div>
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state-small">
+                <p>You haven't set any budgets yet.</p>
+                <a href="{% url 'manage_budgets' %}" class="btn-secondary">Set Your Budgets</a>
+            </div>
+        {% endif %}
+    </div>
+
+<!-- Include the Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Your custom script to create the chart -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('spendingPieChart');
+        const labels = JSON.parse('{{ chart_labels|safe }}');
+        const data = JSON.parse('{{ chart_data|safe }}');
+
+        if (ctx && data.length > 0) {
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Spending',
+                        data: data,
+                        backgroundColor: ['#4A90E2', '#50E3C2', '#F5A623', '#F8E71C', '#BD10E0', '#B8E986', '#7ED321', '#9013FE', '#417505', '#D0021B'],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        } else if (ctx) {
+            const context = ctx.getContext('2d');
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillStyle = '#6c757d';
+            context.font = "16px 'Poppins', sans-serif";
+            context.fillText('No spending data to display yet.', ctx.width / 2, ctx.height / 2);
+        }
+    });
+</script>
+{% endblock %}
+
