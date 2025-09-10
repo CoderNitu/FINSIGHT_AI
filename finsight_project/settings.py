@@ -7,37 +7,34 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-# ===============================================================
-# ===         THE CRITICAL ALLOWED_HOSTS FIX                ===
-# ===============================================================
-# Get the hostname from the Render environment variable
 RENDER_EXTERNAL_HOSTNAME = config('RENDER_EXTERNAL_HOSTNAME', default=None)
-
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS = [RENDER_EXTERNAL_HOSTNAME]
 else:
-    # Allow localhost for local development
     ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-
-# Application definition
+# ===============================================================
+# ===         THE FINAL FIX IS IN THIS SECTION              ===
+# ===============================================================
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # NOTE: The incorrect whitenoise line has been REMOVED from here.
     'django.contrib.staticfiles',
     # My Apps
     'core',
     'transactions',
-    'transactions.templatags',
+    'transactions.templatetags',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # WhiteNoise middleware correctly belongs here, right after security.
     'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
