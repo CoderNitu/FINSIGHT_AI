@@ -21,6 +21,6 @@
             value: 3.11 # Specify a Python version
 
       # This is our free PostgreSQL database
-      - type: psql
+      - type: postgres
         name: finsight-db
         plan: free # Important: use the free tier
