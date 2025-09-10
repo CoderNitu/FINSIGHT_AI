@@ -3,7 +3,7 @@ services:
   - type: web
     name: finsight-ai-web
     env: python
-    plan: free # 
+    plan: free
     buildCommand: |
       pip install -r requirements.txt
       python manage.py collectstatic --no-input
@@ -17,7 +17,7 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: PYTHON_VERSION
-        value: 3.11
+        value: 3.11.9 
 
 databases:
   - name: finsight-db
