@@ -1,7 +1,7 @@
 FinSight AI - Intelligent Personal Finance Tracker
 FinSight AI is a modern, full-stack web application designed to bring clarity to personal finance management. It goes beyond simple expense tracking by leveraging a smart, adaptive AI engine to automatically categorize transactions, providing users with powerful insights into their spending habits through interactive visualizations, budgeting tools, and predictive forecasting.
 
-Live Demo: [Your Render App URL Here]
+Live Demo: https://finsight-ai-web.onrender.com
 
 ✨ Key Features
 This project is a comprehensive showcase of modern web development and data analysis techniques, featuring:
