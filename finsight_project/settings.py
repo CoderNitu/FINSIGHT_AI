@@ -13,28 +13,23 @@ if RENDER_EXTERNAL_HOSTNAME:
 else:
     ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-# ===============================================================
-# ===         THE FINAL FIX IS IN THIS SECTION              ===
-# ===============================================================
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    # NOTE: The incorrect whitenoise line has been REMOVED from here.
     'django.contrib.staticfiles',
     # My Apps
     'core',
     'transactions',
-    'transactions.templatetags',
+    # 'transactions.templatetags', <-- THIS INCORRECT LINE IS NOW REMOVED
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # WhiteNoise middleware correctly belongs here, right after security.
     'whitenoise.middleware.WhiteNoiseMiddleware',
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
