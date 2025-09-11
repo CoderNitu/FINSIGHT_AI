@@ -13,6 +13,13 @@ if RENDER_EXTERNAL_HOSTNAME:
 else:
     ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
+# ===============================================================
+# ===         THE FINAL PRODUCTION SECURITY FIX             ===
+# ===============================================================
+if RENDER_EXTERNAL_HOSTNAME:
+    CSRF_TRUSTED_ORIGINS = [f'https://{RENDER_EXTERNAL_HOSTNAME}']
+
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -24,7 +31,6 @@ INSTALLED_APPS = [
     # My Apps
     'core',
     'transactions',
-    # 'transactions.templatetags', <-- THIS INCORRECT LINE IS NOW REMOVED
 ]
 
 MIDDLEWARE = [
@@ -39,48 +45,30 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'finsight_project.urls'
-
 TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
+    {'BACKEND': 'django.template.backends.django.DjangoTemplates', 'DIRS': [], 'APP_DIRS': True,
+     'OPTIONS': {'context_processors': [
+            'django.template.context_processors.debug', 'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth', 'django.contrib.messages.context_processors.messages',
+        ],
+    },
     },
 ]
-
 WSGI_APPLICATION = 'finsight_project.wsgi.application'
-
-DATABASES = {
-    'default': dj_database_url.config(
-        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}'
-    )
-}
-
+DATABASES = {'default': dj_database_url.config(default=f'sqlite:///{BASE_DIR / "db.sqlite3"}')}
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
-
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
-
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'
