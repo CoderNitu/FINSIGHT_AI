@@ -3,7 +3,7 @@ FinSight AI is a modern, full-stack web application designed to bring clarity to
 
 Live Demo: https://finsight-ai-web.onrender.com
 
-✨ Key Features
+## ✨ Key Features
 This project is a comprehensive showcase of modern web development and data analysis techniques, featuring:
 
 Secure User Authentication: A sleek and secure system for user registration, login, and session management with a modern glassmorphism UI.
@@ -28,7 +28,7 @@ Data Export: Functionality to download all transaction data as a universal .csv 
 
 Responsive Design: A clean and user-friendly interface that works seamlessly on both desktop and mobile devices.
 
-🛠️ Technology Stack
+## 🛠️ Technology Stack
 This project was built using a robust and scalable tech stack:
 
 Backend: Python, Django, Gunicorn
@@ -43,7 +43,7 @@ Visualization: Chart.js
 
 Deployment: Render, Whitenoise
 
-🚀 Local Setup and Installation
+## 🚀 Local Setup and Installation
 To run this project on your local machine, follow these steps:
 
 Clone the Repository:
@@ -90,7 +90,7 @@ python manage.py runserver
 
 The application will be available at http://127.0.0.1:8000/.
 
-☁️ Deployment
+## ☁️ Deployment
 This application is configured for seamless deployment on Render using a render.yaml blueprint file. The deployment process includes:
 
 Provisioning a free-tier PostgreSQL database.
@@ -105,7 +105,7 @@ Starting the application with the Gunicorn production server.
 
 To deploy, simply create a new "Blueprint" service on Render and connect it to your GitHub repository.
 
-🔮 Future Enhancements
+## 🔮 Future Enhancements
 CSV Transaction Upload: Allow users to upload bank statements in CSV format for bulk transaction import.
 
 True Machine Learning Model: Replace the rule-based system with a trainable model (e.g., using Scikit-learn's Naive Bayes classifier) that learns from a user's manual categorizations over time.
