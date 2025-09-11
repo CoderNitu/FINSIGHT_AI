@@ -10,15 +10,9 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 RENDER_EXTERNAL_HOSTNAME = config('RENDER_EXTERNAL_HOSTNAME', default=None)
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS = [RENDER_EXTERNAL_HOSTNAME]
+    CSRF_TRUSTED_ORIGINS = [f'https://{RENDER_EXTERNAL_HOSTNAME}']
 else:
     ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-
-# ===============================================================
-# ===         THE FINAL PRODUCTION SECURITY FIX             ===
-# ===============================================================
-if RENDER_EXTERNAL_HOSTNAME:
-    CSRF_TRUSTED_ORIGINS = [f'https://{RENDER_EXTERNAL_HOSTNAME}']
-
 
 # Application definition
 INSTALLED_APPS = [
@@ -66,9 +60,19 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+
+# ===============================================================
+# ===         THE FINAL STATIC FILES FIX                    ===
+# ===============================================================
 STATIC_URL = 'static/'
+# This is the directory where Django will collect all static files for production
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# This is the new, crucial line: It tells Django where to find our project's static files
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# This is the storage engine for WhiteNoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'
