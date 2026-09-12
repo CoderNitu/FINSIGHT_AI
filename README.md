@@ -69,6 +69,8 @@ Deployment: Render, Whitenoise
 
 ## Project structure
 
+```
+
 FINSIGHT_AI/
 ├── core/                  # Shared views and application routes
 ├── transactions/          # Transactions, budgets, rules and forecasting
@@ -79,6 +81,7 @@ FINSIGHT_AI/
 ├── requirements.txt
 └── manage.py
 
+```
 
 ## 🚀 Local Setup and Installation
 To run this project on your local machine, follow these steps:
